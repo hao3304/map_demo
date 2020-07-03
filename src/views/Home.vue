@@ -224,8 +224,8 @@ export default {
 <td class="value">1200㎡</td>
 </tr>
 <tr>
-<td class="name">：</td>
-<td class="value" colspan="3">00001</td>
+<td class="name">检查周期：</td>
+<td class="value" colspan="3">季度</td>
 </tr>
 </table>
 </div>
