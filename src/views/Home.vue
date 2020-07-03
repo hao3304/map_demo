@@ -43,6 +43,10 @@
         <img @click="onTest" src="../assets/bottom.png" alt="" />
       </div>
     </transition>
+
+    <Modal v-model="detail" title="资产详情" :width="1280">
+      <img src="./detail.png" style="width: 100%" alt="" />
+    </Modal>
   </div>
 </template>
 
@@ -58,7 +62,8 @@ export default {
   components: { left1, right1 },
   data() {
     return {
-      left: false
+      left: false,
+      detail: false
     };
   },
   methods: {
@@ -186,7 +191,7 @@ export default {
         <div class="f-popup">
         <div class="f-popup__header">
         <span>梅湾街03商铺</span>
-        <a href="javascript:;">详情</a>
+        <a href="javascript:;" onclick="onDetail()">详情</a>
 </div>
 <div class="f-popup__content">
 <table>
@@ -274,6 +279,10 @@ export default {
   },
   mounted() {
     this.renderMap();
+
+    window.onDetail = () => {
+      this.detail = true;
+    };
   }
 };
 </script>
