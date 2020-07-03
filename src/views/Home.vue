@@ -25,15 +25,17 @@
           </div>
         </div>
       </transition>
-      <div class="right">
-        <div class="box">
-          <div style="height: 100%" v-bar>
-            <div>
-              <right1></right1>
+      <transition name="fadeRight">
+        <div class="right" v-if="left">
+          <div class="box">
+            <div style="height: 100%" v-bar>
+              <div>
+                <right1></right1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </transition>
     </div>
 
     <transition name="fadeUp">
@@ -157,6 +159,79 @@ export default {
         latlngs.push([e.latlng.lat, e.latlng.lng]);
         console.log(JSON.stringify(latlngs));
       });
+
+      this.polygon = new L.polygon(
+        [
+          [30.77595591545105, 120.72711288928986],
+          [30.77582180500031, 120.72675883769989],
+          [30.77566623687744, 120.72665691375734],
+          [30.775467753410343, 120.72676956653594],
+          [30.775376558303837, 120.72692513465881],
+          [30.775510668754578, 120.72750449180604],
+          [30.77571451663971, 120.72749912738801],
+          [30.77584862709045, 120.72743475437164],
+          [30.775918364524838, 120.72722017765047]
+        ],
+        {
+          color: "#333",
+          weight: 1,
+          fillColor: "yellow",
+          fillOpacity: 0.4
+        }
+      ).addTo(this.map);
+
+      this.polygon
+        .bindPopup(
+          `
+        <div class="f-popup">
+        <div class="f-popup__header">
+        <span>梅湾街03商铺</span>
+        <a href="javascript:;">详情</a>
+</div>
+<div class="f-popup__content">
+<table>
+<tr>
+<td class="name">产权号：</td>
+<td class="value">00001</td>
+<td class="name">租赁状态：</td>
+<td class="value">已租</td>
+</tr>
+<tr>
+<td class="name">资产地址</td>
+<td class="value" colspan="3">梅湾街03商铺</td>
+</tr>
+<tr>
+<td class="name">房屋面积：</td>
+<td class="value">1200㎡</td>
+<td class="name">土地面积：</td>
+<td class="value">2000㎡</td>
+</tr>
+<tr>
+<td class="name">自用面积：</td>
+<td class="value">-</td>
+<td class="name">外借面积：</td>
+<td class="value">-</td>
+</tr>
+<tr>
+<td class="name">空置面积：</td>
+<td class="value">0</td>
+<td class="name">出租面积：</td>
+<td class="value">1200㎡</td>
+</tr>
+<tr>
+<td class="name">：</td>
+<td class="value" colspan="3">00001</td>
+</tr>
+</table>
+</div>
+</div>`,
+          {
+            keepInView: true,
+            className: "f-popup",
+            minWidth: 200
+          }
+        )
+        .openPopup();
     },
     onTest() {
       this.$Message.error("开发中...");
@@ -203,6 +278,121 @@ export default {
 };
 </script>
 <style lang="less">
+.f-popup {
+  .leaflet-popup-close-button {
+    top: 5px !important;
+    color: #515a6e !important;
+    font-size: 16px !important;
+    right: 5px !important;
+  }
+  .leaflet-popup-tip {
+  }
+  .leaflet-popup-content-wrapper {
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    .leaflet-popup-content {
+      margin: 0;
+      p {
+        margin: 0;
+      }
+
+      .f-popup__loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        background-color: #fff;
+        padding-top: 15px;
+      }
+
+      .f-popup__tabs {
+        margin: 5px;
+        display: flex;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+
+        .tab {
+          flex: 1;
+          border-top: 1px solid #ddd;
+          border-bottom: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          text-align: center;
+          padding: 3px 0;
+          cursor: pointer;
+          font-size: 12px;
+          background-color: #f1f1f1;
+          color: #666;
+          position: relative;
+          &:last-child {
+            border-right: none;
+          }
+          &.selected {
+            background-color: #2d8cf0;
+            color: #fff;
+            border-color: #2d8cf0;
+            cursor: default;
+            &:after {
+              content: " ";
+              position: absolute;
+              bottom: 100%;
+              z-index: 100;
+              left: 50%;
+              margin-left: -6px;
+              width: 0;
+              height: 0;
+              border-right: 6px solid transparent;
+              border-left: 6px solid transparent;
+              border-bottom: 6px solid #2d8cf0;
+            }
+          }
+        }
+      }
+
+      .f-popup__header {
+        background-color: #f9f9f9;
+        height: 32px;
+        line-height: 32px;
+        border-bottom: 1px solid #ccc;
+        font-weight: bold;
+        color: #333;
+        padding: 0 10px;
+      }
+
+      .f-popup__content {
+        padding: 10px 6px;
+        position: relative;
+        min-height: 120px;
+
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          td {
+            border: 1px solid #ddd;
+            padding: 4px;
+          }
+          td.time {
+            color: #2d8cf0;
+          }
+          td.name {
+            width: 80px;
+            text-align: right;
+            padding-right: 15px;
+            background-color: #f1f1f1;
+            color: #666;
+          }
+          td.value {
+            min-width: 60px;
+          }
+          td.device {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
 .dashboard {
   height: 100%;
   display: flex;

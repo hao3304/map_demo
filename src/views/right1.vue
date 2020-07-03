@@ -119,7 +119,7 @@ export default {
           itemWidth: 14,
           itemHeight: 5,
           itemGap: 13,
-          data: ["计划", "维修"],
+          data: ["投诉", "已处理"],
           right: "10px",
           top: "0px",
           textStyle: {
@@ -191,7 +191,7 @@ export default {
         ],
         series: [
           {
-            name: "计划",
+            name: "投诉",
             type: "line",
             smooth: true,
             lineStyle: {
@@ -230,7 +230,7 @@ export default {
             data: [70, 65, 84, 75, 52, 61, 89, 64, 24, 52.4, 64, 73]
           },
           {
-            name: "维修",
+            name: "已处理",
             type: "line",
             smooth: true,
             lineStyle: {
