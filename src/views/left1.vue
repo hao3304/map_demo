@@ -165,6 +165,7 @@ export default {
 .p-left {
   padding: 0 20px;
   .item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     margin-top: 20px;
     .item-header {
       height: 34px;
