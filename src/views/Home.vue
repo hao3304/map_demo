@@ -202,7 +202,7 @@ export default {
 <td class="value">已租</td>
 </tr>
 <tr>
-<td class="name">资产地址</td>
+<td class="name">资产地址：</td>
 <td class="value" colspan="3">梅湾街03商铺</td>
 </tr>
 <tr>

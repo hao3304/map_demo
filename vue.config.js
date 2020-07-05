@@ -1,5 +1,5 @@
 const webpack = require("webpack");
 module.exports = {
-    lintOnSave: false,
-    publicPath: './'
-}
+  lintOnSave: false,
+  publicPath: "./"
+};
