@@ -6,8 +6,8 @@
         <span class="time">{{ new Date().Format("hh:mm") }}</span>
         |
         <div class="date">
-          <div>2020-07-03</div>
-          <div>星期五</div>
+          <div>{{ new Date().Format("yyyy-MM-dd") }}</div>
+          <div>{{ week }}</div>
         </div>
       </div>
     </header>
@@ -38,11 +38,19 @@
       </transition>
     </div>
 
-    <transition name="fadeUp">
-      <div v-show="left" class="bottom">
+    <transition-group
+      name="fadeUp"
+      mode="out-in"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <div v-show="left" class="bottom" key="1">
         <img @click="onTest" src="../assets/bottom.png" alt="" />
       </div>
-    </transition>
+      <div v-show="!left" class="bottom" key="2">
+        <img @click="onTest" src="../assets/bottom2.png" alt="" />
+      </div>
+    </transition-group>
 
     <Modal v-model="detail" title="资产详情" :width="1280">
       <img src="./detail.png" style="width: 100%" alt="" />
@@ -63,7 +71,8 @@ export default {
   data() {
     return {
       left: false,
-      detail: false
+      detail: false,
+      week: null
     };
   },
   methods: {
@@ -239,7 +248,7 @@ export default {
         .openPopup();
     },
     onTest() {
-      this.$Message.error("开发中...");
+      this.left = !this.left;
     },
     drawBoundary(blist) {
       /*画遮蔽层的相关方法
@@ -275,10 +284,25 @@ export default {
         fillOpacity: 0.5
       }); //建立多边形覆盖物
       plyall.addTo(this.map);
+    },
+    init() {
+      const now = new Date();
+      const day = now.getDay();
+      const weeks = new Array(
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六"
+      );
+      this.week = weeks[day];
     }
   },
   mounted() {
     this.renderMap();
+    this.init();
 
     window.onDetail = () => {
       this.detail = true;
