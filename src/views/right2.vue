@@ -212,7 +212,7 @@ export default {
         }
       }
       .chart {
-        height: 200px;
+        height: 240px;
       }
     }
   }
