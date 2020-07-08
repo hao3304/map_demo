@@ -25,12 +25,34 @@
           </div>
         </div>
       </transition>
+      <transition name="fadeLeft">
+        <div v-if="!left" class="left">
+          <div class="box">
+            <div style="height: 100%" v-bar>
+              <div>
+                <left2></left2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
       <transition name="fadeRight">
         <div class="right" v-if="left">
           <div class="box">
             <div style="height: 100%" v-bar>
               <div>
                 <right1></right1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+      <transition name="fadeRight">
+        <div class="right" v-if="!left">
+          <div class="box">
+            <div style="height: 100%" v-bar>
+              <div>
+                <right2></right2>
               </div>
             </div>
           </div>
@@ -65,9 +87,11 @@ import "proj4leaflet";
 import { tiledMapLayer } from "esri-leaflet";
 import left1 from "./left1";
 import right1 from "./right1";
+import left2 from "./left2";
+import right2 from "./right2";
 export default {
   name: "Home",
-  components: { left1, right1 },
+  components: { left1, right1, left2, right2 },
   data() {
     return {
       left: false,
