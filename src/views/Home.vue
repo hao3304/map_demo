@@ -52,7 +52,7 @@
           <div class="box">
             <div style="height: 100%" v-bar>
               <div>
-                <right2></right2>
+                <right2 @on-video="onVideo"></right2>
               </div>
             </div>
           </div>
@@ -77,6 +77,16 @@
     <Modal v-model="detail" title="资产详情" :width="1280">
       <img src="./detail.png" style="width: 100%" alt="" />
     </Modal>
+
+    <Modal v-model="videoModel" title="视频监控" :width="800" footer-hide>
+      <video
+        v-if="videoModel"
+        src="../assets/video.mp4"
+        controls
+        autoplay
+        style="width: 100%"
+      ></video>
+    </Modal>
   </div>
 </template>
 
@@ -96,7 +106,12 @@ export default {
     return {
       left: false,
       detail: false,
-      week: null
+      week: null,
+      videoModel: false,
+      videos: [
+        [30.777066349983215, 120.72580933570863],
+        [30.775301456451416, 120.72611510753632]
+      ]
     };
   },
   methods: {
@@ -270,6 +285,24 @@ export default {
           }
         )
         .openPopup();
+
+      this.renderVideos();
+    },
+    renderVideos() {
+      this.videos.forEach(pos => {
+        var myIcon = L.icon({
+          iconUrl: require("../assets/video.png"),
+          iconSize: [32, 32],
+          iconAnchor: [16, 32]
+        });
+        const marker = new L.marker(pos, { icon: myIcon }).addTo(this.map);
+        marker.on("click", () => {
+          this.videoModel = true;
+        });
+      });
+    },
+    onVideo() {
+      this.videoModel = true;
     },
     onTest() {
       this.left = !this.left;
@@ -497,7 +530,7 @@ export default {
       position: relative;
     }
     .left {
-      width: 600px;
+      width: 500px;
       background: linear-gradient(
         to right,
         rgba(0, 0, 0, 0.8),

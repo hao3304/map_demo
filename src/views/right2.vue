@@ -7,9 +7,11 @@
       <div class="item-body">
         <Row :gutter="10" class="video">
           <i-col :span="12">
-            <img src="./video/1.png" alt="" />
+            <img src="./video/1.png" @click="onVideo" alt="" />
           </i-col>
-          <i-col :span="12"> <img src="./video/2.png" alt=""/></i-col>
+          <i-col :span="12">
+            <img src="./video/2.png" @click="onVideo" alt=""
+          /></i-col>
           <i-col :span="12"> <img src="./video/3.png" alt=""/></i-col>
           <i-col :span="12"> <img src="./video/4.png" alt=""/></i-col>
           <i-col :span="12"> <img src="./video/5.png" alt=""/></i-col>
@@ -172,6 +174,10 @@ export default {
         ]
       };
       this.chart.setOption(option);
+    },
+    onVideo() {
+      debugger;
+      this.$emit("on-video");
     }
   },
   mounted() {
