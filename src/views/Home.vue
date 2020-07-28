@@ -74,8 +74,19 @@
       </div>
     </transition-group>
 
-    <Modal v-model="detail" title="资产详情" :width="1280">
-      <img src="./detail.png" style="width: 100%" alt="" />
+    <Modal
+      v-model="detail"
+      class="f-modal"
+      title="资产详情"
+      :width="1280"
+      fullscreen
+      footer-hide
+    >
+      <iframe
+        src="http://jxufida.gitee.io/smart2/"
+        style="width: 100%;height: 100%"
+        frameborder="0"
+      ></iframe>
     </Modal>
 
     <Modal v-model="videoModel" title="视频监控" :width="800" footer-hide>
@@ -598,6 +609,13 @@ export default {
       width: 100%;
       height: 150px;
     }
+  }
+}
+
+.f-modal {
+  /deep/.ivu-modal-body {
+    padding: 0;
+    overflow: hidden !important;
   }
 }
 </style>

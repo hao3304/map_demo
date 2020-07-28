@@ -6,8 +6,8 @@
       </div>
       <div class="item-body">
         <h5 class="t1-header">
-          <span>总数 18</span>
-          <span>整顿 10</span>
+          <span @click="onShow(0)">总数 18</span>
+          <span @click="onShow(1)">整顿 10</span>
         </h5>
         <Row :gutter="10">
           <i-col :span="12">
@@ -62,7 +62,7 @@
     </div>
     <div class="item">
       <div class="item-header">
-        <span>实时游客流量</span>
+        <span>实时车辆进出</span>
       </div>
       <div class="item-body">
         <div class="list">
@@ -72,6 +72,16 @@
         </div>
       </div>
     </div>
+
+    <Modal
+      :title="type == '0' ? '安全隐患统计--总数' : '安全隐患统计--整顿'"
+      :width="1280"
+      v-model="model"
+      footer-hide
+    >
+      <img src="../assets/zs.png" style="width: 100%" alt="" v-if="type == 0" />
+      <img src="../assets/zd.png" style="width: 100%" alt="" v-else />
+    </Modal>
   </div>
 </template>
 
@@ -83,7 +93,9 @@ export default {
   data() {
     return {
       list: [0, 1, 3],
-      animate: false
+      animate: false,
+      type: 0,
+      model: false
     };
   },
   methods: {
@@ -123,6 +135,10 @@ export default {
           this.render();
         }, 1000);
       }, 1100);
+    },
+    onShow(type) {
+      this.type = type;
+      this.model = true;
     }
   },
   mounted() {
@@ -169,6 +185,7 @@ export default {
         justify-content: center;
         padding: 10px 0;
         span {
+          cursor: pointer;
           border-left: 1px solid #00e947;
           margin: 0 20px;
           border-right: 1px solid #00e947;
